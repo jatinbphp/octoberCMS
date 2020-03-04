@@ -1,0 +1,163 @@
+1583321575a:1:{s:12:"register.htm";a:9:{s:8:"fileName";s:12:"register.htm";s:7:"content";s:2356:"title = "register"
+url = "/register"
+layout = default
+is_hidden = 0
+messages
+==
+function onHandleForm()
+{
+	$rules = [
+		'name' => 'required',
+		'email' => 'required|email|unique:users,email',
+	];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        return back()->withInput()
+                ->withErrors($validator)
+                ->with('message_type', 'danger')
+                ->with('message', 'There were some error try again');
+    } else {
+	    $name = post('name');
+	    $email = post('email');
+
+	    $link = "";
+		
+		$userId=DB::table('users')->insertGetId([
+			'name' => $name,
+			'email' => $email,
+		]);
+		
+		$url = asset('/profile/'.$userId);
+
+	    Mail::raw("Welcome $name to OctoberCMS Test", function ($m) use ($email) {
+	        $m->from("dhaval.b.php@gmail.com","OctoberCMS");
+	        $m->to($email)->subject("Welcome Mail From OctoberCMS Team");
+	    });
+
+	    Mail::raw("Login url $url", function ($m) use ($email) {
+	        $m->from("dhaval.b.php@gmail.com","OctoberCMS");
+	        $m->to($email)->subject("Login Page Details");
+	    });
+
+	    return Redirect::to('/register');
+    }
+}
+
+==
+
+{% flash %}
+    <div class="alert alert-{{ type == 'error' ? 'danger' : type }}">{{ message }}</div>
+{% endflash %}
+
+<div class="row">
+	<div class="col-6">
+		<form data-request="onHandleForm" class="questionform borderbelow">
+		  <fieldset>
+		    <div id="legend">
+		      <legend class="">Register</legend>
+		    </div>
+		    <div class="control-group">
+		      <!-- Username -->
+		      <label class="control-label"  for="username">Name</label>
+		      <div class="controls">
+		        <input name="name" type="text" placeholder="Enter your full name" required="required">
+		      </div>
+		    </div>
+		 
+		    <div class="control-group">
+		      <!-- E-mail -->
+		      <label class="control-label" for="email">E-mail</label>
+		      <div class="controls">
+		        <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required">
+		        <p class="help-block">Please provide your E-mail</p>
+		      </div>
+		    </div>
+		 
+		    <div class="control-group">
+		      <!-- Button -->
+		      <div class="controls">
+		        <button class="btn btn-success" type="submit">Register</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
+	</div>
+</div>";s:5:"mtime";i:1583320959;s:6:"markup";s:1196:"{% flash %}
+    <div class="alert alert-{{ type == 'error' ? 'danger' : type }}">{{ message }}</div>
+{% endflash %}
+
+<div class="row">
+	<div class="col-6">
+		<form data-request="onHandleForm" class="questionform borderbelow">
+		  <fieldset>
+		    <div id="legend">
+		      <legend class="">Register</legend>
+		    </div>
+		    <div class="control-group">
+		      <!-- Username -->
+		      <label class="control-label"  for="username">Name</label>
+		      <div class="controls">
+		        <input name="name" type="text" placeholder="Enter your full name" required="required">
+		      </div>
+		    </div>
+		 
+		    <div class="control-group">
+		      <!-- E-mail -->
+		      <label class="control-label" for="email">E-mail</label>
+		      <div class="controls">
+		        <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required">
+		        <p class="help-block">Please provide your E-mail</p>
+		      </div>
+		    </div>
+		 
+		    <div class="control-group">
+		      <!-- Button -->
+		      <div class="controls">
+		        <button class="btn btn-success" type="submit">Register</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
+	</div>
+</div>";s:4:"code";s:1074:"function onHandleForm()
+{
+	$rules = [
+		'name' => 'required',
+		'email' => 'required|email|unique:users,email',
+	];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        return back()->withInput()
+                ->withErrors($validator)
+                ->with('message_type', 'danger')
+                ->with('message', 'There were some error try again');
+    } else {
+	    $name = post('name');
+	    $email = post('email');
+
+	    $link = "";
+		
+		$userId=DB::table('users')->insertGetId([
+			'name' => $name,
+			'email' => $email,
+		]);
+		
+		$url = asset('/profile/'.$userId);
+
+	    Mail::raw("Welcome $name to OctoberCMS Test", function ($m) use ($email) {
+	        $m->from("dhaval.b.php@gmail.com","OctoberCMS");
+	        $m->to($email)->subject("Welcome Mail From OctoberCMS Team");
+	    });
+
+	    Mail::raw("Login url $url", function ($m) use ($email) {
+	        $m->from("dhaval.b.php@gmail.com","OctoberCMS");
+	        $m->to($email)->subject("Login Page Details");
+	    });
+
+	    return Redirect::to('/register');
+    }
+}";s:5:"title";s:8:"register";s:3:"url";s:9:"/register";s:6:"layout";s:7:"default";s:9:"is_hidden";s:1:"0";}}

@@ -1,0 +1,241 @@
+1583317355a:1:{s:8:"show.htm";a:9:{s:8:"fileName";s:8:"show.htm";s:7:"content";s:4026:"title = "login"
+url = "/profile/:user_id"
+layout = default
+is_hidden = 0
+==
+function onStart()
+{
+    $user_id = $this->param('user_id');
+}
+
+function onHandleForm()
+{
+    $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'city' => 'required',
+        'country' => 'required',
+        'address' => 'required',
+        'password' => 'required',
+        'password_confirm' => 'required|same:password',
+    ];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        $messages = $validator->messages();
+        foreach ($messages->all() as $message) {
+            echo $message;
+        }
+        return false;
+    } else {
+                
+        $name = post('first_name');
+        $lastname = post('last_name');
+        $city = post('city');
+        $address = post('address');
+        $country = post('country');
+        $password = post('password');
+        $password_confirm = post('password_confirm');
+        
+        DB::table('users')->where('user_id',$this->userId)->update([
+            'name' => $name,
+        ]);
+
+        if(DB::table('user_data')->where('user_id',$this->userId)->count()>0) {
+            $user=DB::table('users')->where("user_id",$userId)->update([
+                'lastname' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+                'password' => bcrypt($password),
+            ]);
+        } else {
+            $user=DB::table('users')->insert([
+                'user_id' => $this->userId,
+                'lastname' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+                'password' => bcrypt($password),
+            ]);
+        }
+    }
+}
+==
+
+<div class="row center">
+    <div class="col-6">
+        <form data-request="onHandleForm" class="questionform borderbelow">
+          <fieldset>
+            <div id="legend">
+              <legend class="">Register</legend>
+            </div>
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">First Name</label>
+              <div class="controls">
+                <input name="first_name" type="text" placeholder="Enter your first name" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Last Name</label>
+              <div class="controls">
+                <input name="last_name" type="text" placeholder="Enter your Last name" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Address</label>
+              <div class="controls">
+                <textarea name="address" id="address" required="required">
+                    
+                </textarea>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">City</label>
+              <div class="controls">
+                <input name="city" type="text" placeholder="Enter your city" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Country</label>
+              <div class="controls">
+                <input name="country" type="text" placeholder="Enter your Country" required="required">
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success" type="submit">Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+    </div>
+</div>";s:5:"mtime";i:1583316744;s:6:"markup";s:2204:"<div class="row center">
+    <div class="col-6">
+        <form data-request="onHandleForm" class="questionform borderbelow">
+          <fieldset>
+            <div id="legend">
+              <legend class="">Register</legend>
+            </div>
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">First Name</label>
+              <div class="controls">
+                <input name="first_name" type="text" placeholder="Enter your first name" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Last Name</label>
+              <div class="controls">
+                <input name="last_name" type="text" placeholder="Enter your Last name" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Address</label>
+              <div class="controls">
+                <textarea name="address" id="address" required="required">
+                    
+                </textarea>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">City</label>
+              <div class="controls">
+                <input name="city" type="text" placeholder="Enter your city" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">Country</label>
+              <div class="controls">
+                <input name="country" type="text" placeholder="Enter your Country" required="required">
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success" type="submit">Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+    </div>
+</div>";s:4:"code";s:1741:"function onStart()
+{
+    $user_id = $this->param('user_id');
+}
+
+function onHandleForm()
+{
+    $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'city' => 'required',
+        'country' => 'required',
+        'address' => 'required',
+        'password' => 'required',
+        'password_confirm' => 'required|same:password',
+    ];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        $messages = $validator->messages();
+        foreach ($messages->all() as $message) {
+            echo $message;
+        }
+        return false;
+    } else {
+                
+        $name = post('first_name');
+        $lastname = post('last_name');
+        $city = post('city');
+        $address = post('address');
+        $country = post('country');
+        $password = post('password');
+        $password_confirm = post('password_confirm');
+        
+        DB::table('users')->where('user_id',$this->userId)->update([
+            'name' => $name,
+        ]);
+
+        if(DB::table('user_data')->where('user_id',$this->userId)->count()>0) {
+            $user=DB::table('users')->where("user_id",$userId)->update([
+                'lastname' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+                'password' => bcrypt($password),
+            ]);
+        } else {
+            $user=DB::table('users')->insert([
+                'user_id' => $this->userId,
+                'lastname' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+                'password' => bcrypt($password),
+            ]);
+        }
+    }
+}";s:5:"title";s:5:"login";s:3:"url";s:17:"/profile/:user_id";s:6:"layout";s:7:"default";s:9:"is_hidden";s:1:"0";}}

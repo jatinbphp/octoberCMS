@@ -1,0 +1,41 @@
+1583321575a:1:{s:15:"site/footer.htm";a:6:{s:8:"fileName";s:15:"site/footer.htm";s:7:"content";s:766:"description = "Footer"
+==
+<!-- <script src="{{ [
+        'assets/js/jquery-3.1.1.min.js',
+        'assets/js/popper.min.js',
+        'assets/js/bootstrap.min.js',
+        'assets/js/mdb.min.js'
+    ]|theme }}"></script> -->
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/jquery-3.1.1.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/popper.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/mdb.min.js') }}"></script>
+
+    <!-- {% framework extras %}
+    {% scripts %} -->
+
+</body>
+</html>";s:5:"mtime";i:1583320974;s:6:"markup";s:738:"<!-- <script src="{{ [
+        'assets/js/jquery-3.1.1.min.js',
+        'assets/js/popper.min.js',
+        'assets/js/bootstrap.min.js',
+        'assets/js/mdb.min.js'
+    ]|theme }}"></script> -->
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/jquery-3.1.1.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/popper.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/themes/zanor-mdbv4/assets/js/mdb.min.js') }}"></script>
+
+    <!-- {% framework extras %}
+    {% scripts %} -->
+
+</body>
+</html>";s:4:"code";N;s:11:"description";s:6:"Footer";}}

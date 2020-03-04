@@ -1,0 +1,74 @@
+title = "login"
+url = "/login"
+layout = default
+is_hidden = 0
+messages
+==
+function onHandleForm()
+{
+	$rules = [
+		'email' => 'required|email',
+		'password' => 'required',
+	];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        return back()->withInput()
+                ->withErrors($validator)
+                ->with('message_type', 'danger')
+                ->with('message', 'There were some error try again');
+    } else {
+	    $email = post('email');
+	    $password = post('password');
+
+	    $credentials['email'] = $email;
+	    $credentials['password'] = $password;
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/dashboard');
+        } else {
+        	return Redirect::to('/login');
+    	}
+    }
+}
+
+==
+
+{% flash %}
+    <div class="alert alert-{{ type == 'error' ? 'danger' : type }}">{{ message }}</div>
+{% endflash %}
+<div class="row center">
+	<div class="col-6">
+		<form data-request="onHandleForm" class="questionform borderbelow">
+		  <fieldset>
+		    <div id="legend">
+		      <legend class="">Login</legend>
+		    </div>
+		    		 
+		    <div class="control-group">
+		      <!-- E-mail -->
+		      <label class="control-label" for="email">E-mail</label>
+		      <div class="controls">
+		        <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required">
+		      </div>
+		    </div>
+
+		    <div class="control-group">
+		      <!-- E-mail -->
+		      <label class="control-label" for="email">Password</label>
+		      <div class="controls">
+		        <input type="password" id="password" name="password" class="input-xlarge" required="required">
+		      </div>
+		    </div>
+		 
+		    <div class="control-group">
+		      <!-- Button -->
+		      <div class="controls">
+		        <button class="btn btn-success" type="submit">Login</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
+	</div>
+</div>

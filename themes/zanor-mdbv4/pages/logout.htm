@@ -1,0 +1,15 @@
+title = "logout"
+url = "/logout"
+layout = default
+is_hidden = 0
+messages
+==
+function onStart()
+{
+	Auth::logout();
+    Session::flash('message', 'You are successfully logged out.');
+    Session::flash('message_type', 'success');
+    return Redirect::to('/login');
+}
+
+==

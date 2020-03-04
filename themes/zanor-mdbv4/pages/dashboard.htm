@@ -1,0 +1,147 @@
+title = "dashboard"
+url = "/dashboard"
+layout = default
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "login"
+==
+function onStart()
+{
+    $userId = $this->param('user_id');
+    $this['profile'] = Db::table('users')->where('id', $userId)->first();
+}
+
+function onHandleForm()
+{
+    $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'city' => 'required',
+        'country' => 'required',
+        'address' => 'required',
+        'birth_date' => 'required',
+    ];
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->fails()) {
+        $messages = $validator->messages();
+        foreach ($messages->all() as $message) {
+            echo $message;
+        }
+        return false;
+    } else {
+                
+        $name = post('first_name');
+        $lastname = post('last_name');
+        $city = post('city');
+        $address = post('address');
+        $country = post('country');
+        $birth_date = post('birth_date');
+        
+        
+        DB::table('users')->where('id',$this->param('user_id'))->update([
+            'name' => $name,
+            'is_activated' => 1,
+        ]);
+
+        if(DB::table('user_data')->where('user_id',$this->param('user_id'))->count()>0) {
+            $user=DB::table('user_data')->where("user_id",$this->param('user_id'))->update([
+                'last_name' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+            ]);
+        } else {
+            $user=DB::table('user_data')->insert([
+                'user_id' => $this->param('user_id'),
+                'last_name' => $lastname,
+                'city' => $city,
+                'address' => $address,
+                'country' => $country,
+                'birth_date' => $birth_date,
+            ]);
+        }
+
+        return Redirect::to('dashboard');
+    }
+}
+==
+
+<div class="row center">
+    <div class="col-6">
+        <form data-request="onHandleForm" class="questionform borderbelow">
+          <fieldset>
+            <div id="legend">
+              <legend class="">Register</legend>
+            </div>
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label"  for="username">First Name</label>
+              <div class="controls">
+                <input name="first_name" type="text" placeholder="Enter your first name" required="required" value="">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"  for="username">Last Name</label>
+              <div class="controls">
+                <input name="last_name" type="text" placeholder="Enter your Last name" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"  for="username">Address</label>
+              <div class="controls">
+                <textarea name="address" id="address" required="required">
+                    
+                </textarea>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"  for="username">City</label>
+              <div class="controls">
+                <input name="city" type="text" placeholder="Enter your city" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"  for="username">Country</label>
+              <div class="controls">
+                <input name="country" type="text" placeholder="Enter your Country" required="required">
+              </div>
+            </div>
+
+            <!-- <div class="control-group">
+              <label class="control-label"  for="username">Password</label>
+              <div class="controls">
+                <input name="password" id="password" type="password" required="required">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"  for="username">Confirm Password</label>
+              <div class="controls">
+                <input name="password_confirm" id="password_confirm" type="password" required="required">
+              </div>
+            </div> -->
+
+            <div class="control-group">
+              <label class="control-label"  for="username">Birth Date</label>
+              <div class="controls">
+                <input name="bith_date" type="text" placeholder="Enter your Birth Date" required="required">
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <div class="controls">
+                <button class="btn btn-success" type="submit">Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+    </div>
+</div>

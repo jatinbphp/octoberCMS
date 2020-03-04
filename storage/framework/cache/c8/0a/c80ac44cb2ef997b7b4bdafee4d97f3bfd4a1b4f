@@ -1,0 +1,21 @@
+1583321403a:1:{s:10:"logout.htm";a:9:{s:8:"fileName";s:10:"logout.htm";s:7:"content";s:268:"title = "logout"
+url = "/logout"
+layout = default
+is_hidden = 0
+messages
+==
+function onStart()
+{
+	Auth::logout();
+    Session::flash('message', 'You are successfully logged out.');
+    Session::flash('message_type', 'success');
+    return Redirect::to('/login');
+}
+
+==";s:5:"mtime";i:1583320095;s:6:"markup";s:0:"";s:4:"code";s:188:"function onStart()
+{
+	Auth::logout();
+    Session::flash('message', 'You are successfully logged out.');
+    Session::flash('message_type', 'success');
+    return Redirect::to('/login');
+}";s:5:"title";s:6:"logout";s:3:"url";s:7:"/logout";s:6:"layout";s:7:"default";s:9:"is_hidden";s:1:"0";}}
